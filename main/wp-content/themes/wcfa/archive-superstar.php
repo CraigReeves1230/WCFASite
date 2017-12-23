@@ -1,32 +1,1 @@
-<?php
-
-get_header('post');
-
-?>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h1 class="page-heading">Superstars</h1>
-            </div>
-        </div>
-        <div class="row">
-            <?php while(have_posts()) { the_post(); ?>
-                <div class="col-sm-12 col-md-6 col-lg-4">
-                    <div class="card">
-                        <a href="<?php the_permalink(); ?>"><img class="card-img-top" src="<?php the_field('profile_image'); ?>"></a>
-                        <div class="card-block">
-                            <a href="<?php the_permalink() ?>"><h4 class="card-title"><?php the_title() ?></h4></a>
-                        </div>
-                    </div>
-                </div>
-            <?php } wp_reset_postdata(); ?>
-        </div>
-    </div>
-
-
-<?php
-
-get_footer();
-
-?>
+<?phpget_header('post');?>    <div class="container">        <div class="row">            <div class="col-md-12">                <h1 class="page-heading">Superstars</h1>            </div>        </div>        <div class="row">            <?php while(have_posts()) { the_post(); ?>                <?php                // find championships being held by superstar                $championships = new WP_Query(['post_type' => 'championship',                    'posts_per_page' => -1,                    'meta_query' => [                        ['key' => 'holder', 'compare' => 'LIKE', 'value' => '"' . get_the_ID() . '"' ]                    ]                ]);                ?>                <div class="col-sm-12 col-md-6 col-lg-4">                    <div class="card">                        <a href="<?php the_permalink(); ?>"><img class="card-img-top" src="<?php the_field('profile_image'); ?>"></a>                        <div class="card-block">                            <a href="<?php the_permalink() ?>"><h4 class="card-title"><?php the_title() ?></h4></a>                            <?php                                while($championships->have_posts()){                                    $championships->the_post();                                    ?>                                    <img class="img-fluid" src="<?php the_field('image') ?>">                                    <?php                                }                            ?>                        </div>                    </div>                </div>            <?php } wp_reset_postdata(); ?>        </div>    </div><?phpget_footer();?>

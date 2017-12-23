@@ -18,6 +18,14 @@ add_action('init', function(){
         'rewrite' => ['slug' => 'features'], 'supports' => ['title', 'editor', 'excerpt']
     ]);
 
+    // Championship post type
+    register_post_type('championship', [
+        'public' => true, 'labels' => ['name' => 'Championships', 'add_new_item' => 'Add New Championship', 'edit_item' => 'Edit 
+        Championship', 'all_items' => 'All Championships', 'singular_name' => 'Championship'], 'menu_icon' => 'dashicons-awards',
+        'has_archive' => true,
+        'rewrite' => ['slug' => 'championships'], 'supports' => ['title', 'editor']
+    ]);
+
     // Superstar post type
     register_post_type('superstar', [
         'public' => true, 'labels' => ['name' => 'Superstars', 'add_new_item' => 'Add New Superstar', 'edit_item' => 'Edit 
